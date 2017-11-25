@@ -1,0 +1,4 @@
+
+Nsquid:S1068"2Remove this unused "viewBackground" private field.(èú•Â8«€™ÿ+
+Nsquid:S1068"2Remove this unused "viewForeground" private field.(÷âÆ›8«€™ÿ+
+squid:S1319"qThe type of the "events" object should be an interface such as "List" rather than the implementation "ArrayList".(ëŠÊ8«€™ÿ+
