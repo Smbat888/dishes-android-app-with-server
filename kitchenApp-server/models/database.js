@@ -17,14 +17,14 @@ const DEFAULT_DB_CONFIG = {
 var pgp = require('pg-promise')(options);
 var db = pgp(DEFAULT_DB_CONFIG);
 
-function getAllDishis(req, res, next) {
-  db.any('select * from dishis')
+function getAllDishes(req, res, next) {
+  db.any('select * from dishes')
     .then(function (data) {
       res.status(200)
         .json({
           status: 'success',
           data: data,
-          message: 'Retrieved ALL dishis'
+          message: 'Retrieved ALL dishes'
         });
     })
     .catch(function (err) {
@@ -34,7 +34,7 @@ function getAllDishis(req, res, next) {
 
 function getAllDishById(req, res, next) {
   var dishId = parseInt(req.params.id);
-  db.one('select * from dishis where id = $1', dishId)
+  db.one('select * from dishes where id = $1', dishId)
     .then(function (data) {
       res.status(200)
         .json({
@@ -50,7 +50,7 @@ function getAllDishById(req, res, next) {
 
 function removeDishById(req, res, next) {
   var dishId = parseInt(req.params.id);
-  db.result('delete from dishis where id = $1', dishId)
+  db.result('delete from dishes where id = $1', dishId)
     .then(function (result) {
       /* jshint ignore:start */
       res.status(200)
@@ -66,7 +66,7 @@ function removeDishById(req, res, next) {
 }
 
 function createDish(req, res, next) {
-  db.none('insert into dishis(title, description, image, userId)' +
+  db.none('insert into dishes(title, description, image, userId)' +
       'values(${title}, ${description}, ${image}, ${userId})',
     req.body)
     .then(function () {
@@ -98,7 +98,7 @@ function getUserById(req, res, next) {
 }
 
 module.exports = {
-  getAllDishis: getAllDishis,
+  getAllDishes: getAllDishes,
   getAllDishById: getAllDishById,
   removeDishById: removeDishById,
   createDish: createDish,

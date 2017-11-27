@@ -3,8 +3,8 @@ var express = require('express');
 var router = express.Router();
 var db = require('../models/database');
 
-router.get('/api/dishis', db.getAllDishis);
-router.get('/api/dishis/:id', db.getAllDishById);
+router.get('/api/dishes', db.getAllDishes);
+router.get('/api/dishes/:id', db.getAllDishById);
 router.post('/api/createDish', db.createDish);
 router.get('/api/users/:id', db.getUserById);
 router.delete('/api/removeDish/:id', db.removeDishById);

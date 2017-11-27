@@ -9,7 +9,7 @@
 *.class
 
 # Generated files
-bin/
+#bin/
 gen/
 out/
 
@@ -53,3 +53,7 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+
+
+# Node modules
+node_modules/
