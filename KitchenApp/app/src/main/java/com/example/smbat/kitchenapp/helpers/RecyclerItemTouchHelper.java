@@ -1,10 +1,12 @@
-package com.example.smbat.kitchenapp;
+package com.example.smbat.kitchenapp.helpers;
 
 
 import android.graphics.Canvas;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+
+import com.example.smbat.kitchenapp.adapters.DishesListAdapter;
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private RecyclerItemTouchHelperListener listener;

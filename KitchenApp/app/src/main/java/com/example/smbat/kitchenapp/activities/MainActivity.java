@@ -1,4 +1,4 @@
-package com.example.smbat.kitchenapp;
+package com.example.smbat.kitchenapp.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +16,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.smbat.kitchenapp.R;
+import com.example.smbat.kitchenapp.adapters.DishesListAdapter;
+import com.example.smbat.kitchenapp.helpers.RecyclerItemTouchHelper;
+import com.example.smbat.kitchenapp.interfaces.PostRequest;
+import com.example.smbat.kitchenapp.interfaces.GetRequest;
+import com.example.smbat.kitchenapp.objects.Dish;
+import com.example.smbat.kitchenapp.objects.Dishes;
+
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -28,10 +36,10 @@ public class MainActivity extends AppCompatActivity implements
         SwipeRefreshLayout.OnRefreshListener,
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
-    public static final String BASE_URL = "http://172.20.32.112:3000/";
+    public static final String BASE_URL = "http://192.168.0.102:3000/";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
-    private ArrayList<Dish> dishis;
+    private ArrayList<Dish> dishes;
     private DishesListAdapter dishesListAdapter;
 
     @Override
@@ -99,19 +107,19 @@ public class MainActivity extends AppCompatActivity implements
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        RequestInterface request = retrofit.create(RequestInterface.class);
-        Call<Dishis> call = request.getJson();
-        call.enqueue(new Callback<Dishis>() {
+        GetRequest request = retrofit.create(GetRequest.class);
+        Call<Dishes> call = request.getJson();
+        call.enqueue(new Callback<Dishes>() {
             @Override
-            public void onResponse(Call<Dishis> call, Response<Dishis> response) {
-                Dishis jsonResponse = response.body();
-                dishis = new ArrayList<>(jsonResponse.getDishis());
-                dishesListAdapter = new DishesListAdapter(MainActivity.this, dishis);
+            public void onResponse(Call<Dishes> call, Response<Dishes> response) {
+                Dishes jsonResponse = response.body();
+                dishes = new ArrayList<>(jsonResponse.getDishes());
+                dishesListAdapter = new DishesListAdapter(MainActivity.this, dishes);
                 mRecyclerView.setAdapter(dishesListAdapter);
             }
 
             @Override
-            public void onFailure(Call<Dishis> call, Throwable t) {
+            public void onFailure(Call<Dishes> call, Throwable t) {
                 Log.d("Error",t.getMessage());
             }
         });
@@ -122,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        PostRequestInterface requestInterface = retrofit.create(PostRequestInterface.class);
+        PostRequest requestInterface = retrofit.create(PostRequest.class);
         requestInterface.savePost("Some Title 1", "Some Description 1", "some_image.jpg", 1).enqueue(new Callback<Dish>() {
             @Override
             public void onResponse(Call<Dish> call, Response<Dish> response) {
@@ -144,10 +152,10 @@ public class MainActivity extends AppCompatActivity implements
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                dishis.clear();
+                dishes.clear();
                 dishesListAdapter = null;
                 loadJSON();
-                mRecyclerView.scrollToPosition(dishis.size() - 1);
+                mRecyclerView.scrollToPosition(dishes.size() - 1);
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         }, 1000);
@@ -157,10 +165,10 @@ public class MainActivity extends AppCompatActivity implements
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof DishesListAdapter.DishViewHolder) {
             // get the removed item name to display it in snack bar
-            String name = dishis.get(viewHolder.getAdapterPosition()).getTitle();
+            String name = dishes.get(viewHolder.getAdapterPosition()).getTitle();
 
             // backup of removed item for undo purpose
-            final Dish deletedItem = dishis.get(viewHolder.getAdapterPosition());
+            final Dish deletedItem = dishes.get(viewHolder.getAdapterPosition());
             final int deletedIndex = viewHolder.getAdapterPosition();
 
             // remove the item from recycler view

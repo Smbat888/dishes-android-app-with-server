@@ -1,4 +1,4 @@
-package com.example.smbat.kitchenapp;
+package com.example.smbat.kitchenapp.objects;
 
 
 public class User {
