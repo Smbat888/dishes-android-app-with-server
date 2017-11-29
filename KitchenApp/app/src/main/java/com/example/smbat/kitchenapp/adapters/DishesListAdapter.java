@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.smbat.kitchenapp.constants.Constants;
 import com.example.smbat.kitchenapp.objects.Dish;
-import com.example.smbat.kitchenapp.activities.MainActivity;
 import com.example.smbat.kitchenapp.R;
 import com.example.smbat.kitchenapp.activities.ScrollingActivity;
 import com.example.smbat.kitchenapp.interfaces.DeleteRequest;
@@ -55,7 +55,7 @@ public class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.Di
 
     public void removeItem(int position) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MainActivity.BASE_URL)
+                .baseUrl(Constants.HOST_NAME)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         DeleteRequest request = retrofit.create(DeleteRequest.class);
@@ -100,7 +100,7 @@ public class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.Di
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ScrollingActivity.class);
-                    intent.putExtra("DISH_ID_KEY", dishes.get(getAdapterPosition()).getId());
+                    intent.putExtra(Constants.DISH_ID_KEY, dishes.get(getAdapterPosition()).getId());
                     context.startActivity(intent);
                 }
             });
@@ -108,7 +108,7 @@ public class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.Di
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ScrollingActivity.class);
-                    intent.putExtra("USER_ID_KEY", dishes.get(getAdapterPosition()).getOwner());
+                    intent.putExtra(Constants.USER_ID_KEY, dishes.get(getAdapterPosition()).getOwner());
                     context.startActivity(intent);
                 }
             });

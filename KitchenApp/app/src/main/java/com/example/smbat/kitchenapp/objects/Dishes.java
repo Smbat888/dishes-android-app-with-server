@@ -1,12 +1,13 @@
 package com.example.smbat.kitchenapp.objects;
 
 
+import com.example.smbat.kitchenapp.constants.Constants;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class Dishes {
-    @SerializedName("data")
+    @SerializedName(Constants.DATA)
     private List<Dish> dishes;
 
 

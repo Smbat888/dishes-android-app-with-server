@@ -32,11 +32,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import com.example.smbat.kitchenapp.constants.Constants;
+
+
 public class MainActivity extends AppCompatActivity implements
         SwipeRefreshLayout.OnRefreshListener,
         RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
-    public static final String BASE_URL = "http://192.168.0.102:3000/";
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private ArrayList<Dish> dishes;
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void loadJSON() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constants.HOST_NAME)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         GetRequest request = retrofit.create(GetRequest.class);
@@ -127,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private void addDish() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constants.HOST_NAME)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         PostRequest requestInterface = retrofit.create(PostRequest.class);
