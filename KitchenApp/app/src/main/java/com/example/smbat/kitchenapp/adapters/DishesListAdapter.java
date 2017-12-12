@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.smbat.kitchenapp.constants.Constants;
-import com.example.smbat.kitchenapp.objects.Dish;
+import com.example.smbat.kitchenapp.models.Dish;
 import com.example.smbat.kitchenapp.R;
 import com.example.smbat.kitchenapp.activities.ScrollingActivity;
 import com.example.smbat.kitchenapp.interfaces.DeleteRequest;
@@ -114,4 +114,5 @@ public class DishesListAdapter extends RecyclerView.Adapter<DishesListAdapter.Di
             });
         }
     }
+
 }

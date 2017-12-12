@@ -1,4 +1,4 @@
-package com.example.smbat.kitchenapp.objects;
+package com.example.smbat.kitchenapp.models;
 
 
 import com.example.smbat.kitchenapp.constants.Constants;

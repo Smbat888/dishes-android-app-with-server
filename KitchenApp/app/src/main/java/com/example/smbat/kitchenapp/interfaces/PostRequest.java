@@ -2,7 +2,7 @@ package com.example.smbat.kitchenapp.interfaces;
 
 
 import com.example.smbat.kitchenapp.constants.Constants;
-import com.example.smbat.kitchenapp.objects.Dish;
+import com.example.smbat.kitchenapp.models.Dish;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

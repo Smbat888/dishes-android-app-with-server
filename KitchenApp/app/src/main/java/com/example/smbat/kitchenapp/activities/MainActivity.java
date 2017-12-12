@@ -1,5 +1,6 @@
 package com.example.smbat.kitchenapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -19,10 +20,9 @@ import android.view.MenuItem;
 import com.example.smbat.kitchenapp.R;
 import com.example.smbat.kitchenapp.adapters.DishesListAdapter;
 import com.example.smbat.kitchenapp.helpers.RecyclerItemTouchHelper;
-import com.example.smbat.kitchenapp.interfaces.PostRequest;
 import com.example.smbat.kitchenapp.interfaces.GetRequest;
-import com.example.smbat.kitchenapp.objects.Dish;
-import com.example.smbat.kitchenapp.objects.Dishes;
+import com.example.smbat.kitchenapp.models.Dish;
+import com.example.smbat.kitchenapp.models.Dishes;
 
 import java.util.ArrayList;
 
@@ -52,13 +52,14 @@ public class MainActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         initRecyclerView();
         initSwipeRefreshLayout();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addDish();
-            }
-        });
+        openDishRegisterPage();
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addDish();
+//            }
+//        });
     }
 
     private void initSwipeRefreshLayout() {
@@ -127,24 +128,15 @@ public class MainActivity extends AppCompatActivity implements
         });
     }
 
-    private void addDish() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.HOST_NAME)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        PostRequest requestInterface = retrofit.create(PostRequest.class);
-        requestInterface.savePost("Some Title 1", "Some Description 1", "some_image.jpg", 1).enqueue(new Callback<Dish>() {
+    private void openDishRegisterPage() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<Dish> call, Response<Dish> response) {
-
-                if(response.isSuccessful()) {
-                    Log.i("HEY", "post submitted to API." + response.body().toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Dish> call, Throwable t) {
-                Log.e("HEY", "Unable to submit post to API.");
+            public void onClick(View view) {
+//                addDish();
+                Intent intent = new Intent("com.example.smbat.kitchenapp.activities.RegisterDish");
+//                Intent intent = new Intent(context, RegisterDish.class);
+                startActivity(intent);
             }
         });
     }
